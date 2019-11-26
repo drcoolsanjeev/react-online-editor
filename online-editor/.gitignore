@@ -7,7 +7,7 @@
 yarn.lock
 # testing
 /coverage
-
+.history
 # production
 /build
 
