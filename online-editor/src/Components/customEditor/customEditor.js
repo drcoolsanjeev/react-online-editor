@@ -12,11 +12,18 @@ import FileSaver from 'file-saver';
 export default class CustomEditor extends Component {
 
     aceRef = null
+    
+    constructor() {
+        super()
+        this.state = {
+            isModalOpen: false,
+            fileName: '',
+            fileType: 'text/javascript'
+        }
+    }
 
-    state = {
-        isModalOpen: false,
-        fileName: '',
-        fileType: ''
+    componentDidMount() {
+        this.aceRef = this.refs.aceEditor;
     }
 
     onFileUpload = (file) => {
@@ -37,6 +44,7 @@ export default class CustomEditor extends Component {
     }
 
     onFileDownload = () => {
+        console.log(this.state)
         var file = new File([this.aceRef.editor.getValue()], this.state.fileName, {type: this.state.fileType+";charset=utf-8"});
         FileSaver.saveAs(file);
     }
@@ -49,13 +57,6 @@ export default class CustomEditor extends Component {
     // closeModal = () => {
     //     this.setState({isModalOpen: false})
     // }
-
-    constructor() {
-        super()
-        this.state = {
-
-        }
-    }
 
 
     render() {
