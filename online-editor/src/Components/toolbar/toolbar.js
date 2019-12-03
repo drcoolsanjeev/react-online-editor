@@ -75,24 +75,15 @@ export default class Toolbar extends Component {
           key: 'download',
           text: 'Download',
           iconProps: { iconName: 'Download' },
-          onClick: () => console.log('Download')
+          onClick: () => this.props.onFileDownload()
         }
       ];
       
     _farItems = [
         {
-          key: 'tile',
-          text: 'Grid view',
-          // This needs an ariaLabel since it's icon-only
-          ariaLabel: 'Grid view',
-          iconOnly: true,
-          iconProps: { iconName: 'Tiles' },
-          onClick: () => console.log('Tiles')
-        },
-        {
           key: 'info',
           text: 'Info',
-          // This needs an ariaLabel since it's icon-only
+          // This needs an ariaL    abel since it's icon-only
           ariaLabel: 'Info',
           iconOnly: true,
           iconProps: { iconName: 'Info' },
@@ -133,7 +124,10 @@ export default class Toolbar extends Component {
                         this.setState({
                           files: fileItems.map(fileItem => fileItem.file)
                         });
-                        this.props.onFileUpload(fileItems[0].file)
+                        if(fileItems.length > 0) {
+                            this.props.onFileUpload(fileItems[0].file)
+                            this.setState({isModalOpen: false})
+                        }
                       }}    
                     />
             </Modal>

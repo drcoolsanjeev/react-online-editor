@@ -7,16 +7,20 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-emmet";
 import './editor.css';
 import Toolbar from '../toolbar/toolbar';
-
-
+import FileSaver from 'file-saver';
 
 export default class CustomEditor extends Component {
 
     aceRef = null
 
+    state = {
+        isModalOpen: false,
+        fileName: ''
+    }
 
     onFileUpload = (file) => {
         var fileName = file.name;
+        this.setState({fileName: fileName})
         var reader = new FileReader();
 
         console.log(file)
@@ -30,6 +34,20 @@ export default class CustomEditor extends Component {
         reader.readAsText(file, "UTF-8");
     }
 
+    onFileDownload = () => {
+        var file = new File([this.aceRef.editor.getValue()], this.state.fileName, {type: "application/javascript;charset=utf-8"});
+        FileSaver.saveAs(file);
+    }
+
+    // openModal = () => {
+    //     console.log('opening modal')
+    //     this.setState({isModalOpen: true})
+    // }
+
+    // closeModal = () => {
+    //     this.setState({isModalOpen: false})
+    // }
+
     constructor() {
         super()
         this.state = {
@@ -41,7 +59,7 @@ export default class CustomEditor extends Component {
     render() {
         return (
             <Fragment>
-                <Toolbar onFileUpload={this.onFileUpload} />
+                <Toolbar onFileDownload={this.onFileDownload} onFileUpload={this.onFileUpload} />
                 <AceEditor
                 ref="aceEditor"
                 placeholder="Start writing magic!"
@@ -64,7 +82,15 @@ export default class CustomEditor extends Component {
                 enableSnippets: true,   
                 showLineNumbers: true,
                 tabSize: 2,
-                }}/>
+                }}
+                commands={[
+                    {   //custom commands for saving and opening files
+                        name: 'saveFile', 
+                        bindKey: {win: 'Ctrl-s', mac: 'Command-s'}, //key combination used for the command.
+                        exec: () => { this.onFileDownload()}  //function to execute when keys are pressed.
+                    }
+                ]}
+                />
             </Fragment>      
         )
     }
