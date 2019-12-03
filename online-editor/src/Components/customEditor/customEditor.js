@@ -15,12 +15,14 @@ export default class CustomEditor extends Component {
 
     state = {
         isModalOpen: false,
-        fileName: ''
+        fileName: '',
+        fileType: ''
     }
 
     onFileUpload = (file) => {
         var fileName = file.name;
-        this.setState({fileName: fileName})
+        var fileType = file.type;
+        this.setState({fileName: fileName, fileType: fileType})
         var reader = new FileReader();
 
         console.log(file)
@@ -35,7 +37,7 @@ export default class CustomEditor extends Component {
     }
 
     onFileDownload = () => {
-        var file = new File([this.aceRef.editor.getValue()], this.state.fileName, {type: "application/javascript;charset=utf-8"});
+        var file = new File([this.aceRef.editor.getValue()], this.state.fileName, {type: this.state.fileType+";charset=utf-8"});
         FileSaver.saveAs(file);
     }
 

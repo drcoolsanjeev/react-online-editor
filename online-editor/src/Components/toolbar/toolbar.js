@@ -53,7 +53,8 @@ export default class Toolbar extends Component {
     state = {
         isModalOpen: false,
         fileUploaded: false,
-        files: []
+        files: [],
+        fileCount: 0
     }
 
     handleUpload = () => {
@@ -126,7 +127,10 @@ export default class Toolbar extends Component {
                         });
                         if(fileItems.length > 0) {
                             this.props.onFileUpload(fileItems[0].file)
-                            this.setState({isModalOpen: false})
+                            if(this.state.fileCount == 0) {
+                                this.setState({isModalOpen: false})
+                                this.setState({fileCount: 1})
+                            }
                         }
                       }}    
                     />
