@@ -30,7 +30,7 @@ export default class CustomEditor extends Component {
         const fileName = file.name;
         const fileType = file.type;
         this.setState({fileName: fileName, fileType: fileType})
-        var reader = new FileReader();
+        const reader = new FileReader();
 
         reader.onload = (e) => {
             this.aceRef = this.refs.aceEditor;
@@ -41,7 +41,7 @@ export default class CustomEditor extends Component {
     }
 
     onFileDownload = () => {
-        var file = new File([this.aceRef.editor.getValue()], this.state.fileName, {type: this.state.fileType+";charset=utf-8"});
+        const file = new File([this.aceRef.editor.getValue()], this.state.fileName, {type: this.state.fileType+";charset=utf-8"});
         FileSaver.saveAs(file);
     }
 
