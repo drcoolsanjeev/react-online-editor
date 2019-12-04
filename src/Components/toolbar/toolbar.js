@@ -127,7 +127,7 @@ export default class Toolbar extends Component {
                         });
                         if(fileItems.length > 0) {
                             this.props.onFileUpload(fileItems[0].file)
-                            if(this.state.fileCount == 0) {
+                            if(this.state.fileCount === 0) {
                                 this.setState({isModalOpen: false})
                                 this.setState({fileCount: 1})
                             }
