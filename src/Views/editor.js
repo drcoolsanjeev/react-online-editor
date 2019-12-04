@@ -8,10 +8,7 @@ export default class Editor extends Component {
     
     render() {
         return (
-            <Fragment>
-                {/* <Toolbar/> */}
-                <CustomEditor/>
-            </Fragment>
+            <CustomEditor/>        
         )
     }
 }

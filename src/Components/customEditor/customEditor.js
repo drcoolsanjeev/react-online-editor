@@ -27,16 +27,13 @@ export default class CustomEditor extends Component {
     }
 
     onFileUpload = (file) => {
-        var fileName = file.name;
-        var fileType = file.type;
+        const fileName = file.name;
+        const fileType = file.type;
         this.setState({fileName: fileName, fileType: fileType})
         var reader = new FileReader();
 
-        console.log(file)
-
         reader.onload = (e) => {
             this.aceRef = this.refs.aceEditor;
-            console.log(this.aceRef)
             this.aceRef.editor.setValue(e.target.result);
         }
 
@@ -44,20 +41,9 @@ export default class CustomEditor extends Component {
     }
 
     onFileDownload = () => {
-        console.log(this.state)
         var file = new File([this.aceRef.editor.getValue()], this.state.fileName, {type: this.state.fileType+";charset=utf-8"});
         FileSaver.saveAs(file);
     }
-
-    // openModal = () => {
-    //     console.log('opening modal')
-    //     this.setState({isModalOpen: true})
-    // }
-
-    // closeModal = () => {
-    //     this.setState({isModalOpen: false})
-    // }
-
 
     render() {
         return (
