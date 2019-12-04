@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import AceEditor from 'react-ace';
 import "ace-builds/src-min-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/ext-emmet";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/snippets/javascript";
 import "ace-builds/src-noconflict/theme-monokai";
-import "ace-builds/src-noconflict/ext-emmet";
-import './editor.css';
-import Toolbar from '../toolbar/toolbar';
 import FileSaver from 'file-saver';
+import React, { Component, Fragment } from 'react';
+import AceEditor from 'react-ace';
+import Toolbar from '../toolbar/toolbar';
+import './editor.css';
 
 export default class CustomEditor extends Component {
 

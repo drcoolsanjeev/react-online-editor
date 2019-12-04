@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import 'filepond/dist/filepond.min.css';
+import { FontSizes, FontWeights, getTheme, mergeStyleSets, Modal } from 'office-ui-fabric-react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
-import { Modal, Text, FontWeights, getTheme, mergeStyleSets, FontSizes } from 'office-ui-fabric-react';
+import React, { Component } from 'react';
 import { FilePond } from 'react-filepond';
-import 'filepond/dist/filepond.min.css';
-import './toolbar.css'
+import './toolbar.css';
 
 //icons for fabric ui
 initializeIcons();
