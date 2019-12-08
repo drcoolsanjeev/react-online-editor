@@ -61,11 +61,11 @@ export default class Toolbar extends Component {
         this.setState({isModalOpen: true})
     }
 
-    _closeModal = () => {
+    closeModal = () => {
         this.setState({isModalOpen: false})
     }
 
-    _items = [
+    items = [
         {
           key: 'upload',
           text: 'Upload',
@@ -80,7 +80,7 @@ export default class Toolbar extends Component {
         }
       ];
       
-    _farItems = [
+    farItems = [
         {
           key: 'info',
           text: 'Info',
@@ -93,19 +93,21 @@ export default class Toolbar extends Component {
     ];
     
     render() {
+        const { fileCount, isModalOpen, files } = this.state;
+
         return (
             <div>
             <CommandBar
-                items={this._items}
+                items={this.items}
                 overflowItems={this._overflowItems}
                 overflowButtonProps={this.overflowProps}
-                farItems={this._farItems}
+                farItems={this.farItems}
                 ariaLabel="Use left and right arrow keys to navigate between commands"
             />
             <Modal
-                isOpen={this.state.isModalOpen}
+                isOpen={isModalOpen}
                 isBlocking={false}
-                onDismiss={this._closeModal}
+                onDismiss={this.closeModal}
             >
                 <div className={contentStyles.header}>
                     <span>Upload a file to edit</span>
@@ -119,7 +121,7 @@ export default class Toolbar extends Component {
                     dropOnPage={true}
                     maxFiles={1}
                     ref={ref => this.pond = ref}
-                    files={this.state.files}
+                    files={files}
                     className="fileUploadBox"
                     onupdatefiles={fileItems => {
                         this.setState({
@@ -127,7 +129,7 @@ export default class Toolbar extends Component {
                         });
                         if(fileItems.length > 0) {
                             this.props.onFileUpload(fileItems[0].file)
-                            if(this.state.fileCount === 0) {
+                            if(fileCount === 0) {
                                 this.setState({isModalOpen: false})
                                 this.setState({fileCount: 1})
                             }

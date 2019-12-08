@@ -29,7 +29,7 @@ export default class CustomEditor extends Component {
     onFileUpload = (file) => {
         const fileName = file.name;
         const fileType = file.type;
-        this.setState({fileName: fileName, fileType: fileType})
+        this.setState({ fileName, fileType });
         const reader = new FileReader();
 
         reader.onload = (e) => {
