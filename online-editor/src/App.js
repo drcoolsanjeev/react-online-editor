@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div style={{backgroundColor: 'black'}}>
+    <div style={{backgroundColor: '#232323'}}>
     <Home />
     </div>
   );

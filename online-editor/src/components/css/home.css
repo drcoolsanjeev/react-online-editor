@@ -49,32 +49,16 @@
     font-family: 'Comfortaa', cursive;
     color: #00C8F9;
 }
-.option{
-    font-family: 'Comfortaa', cursive;
-    border: 1px solid #00C8F9;
-    color: #00C8F9;
-    padding:0px !important;
-    background-color: black;
-}
-.option:hover{
-    cursor: url('../icons/cursor.png'), auto;
-}
+
 .mode{
-    margin:5px;
+    margin-left:10px;
     font-weight:bold;
     padding:10px;
     border: 1px solid #00C8F9;
     color: #00C8F9;
-    background-color: black;
+    background-color: #232323;
 }
-.mode:active,
-.mode:hover{
-    cursor: url('../icons/cursor.png'), auto;
-}
+
 .mode-option{
     font-weight: bold;
-}
-.mode-option:active,
-.mode-option:hover{
-    cursor: url('../icons/cursor.png'), auto;
 }
