@@ -1,0 +1,27 @@
+.title{
+    padding-bottom: 50px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 55px;
+    font-weight: bold;
+    color: #00C8F9;
+    text-align: center;
+}
+.Main{
+    padding: 100px;
+}
+.editor{
+    padding: 5px;
+    background-color: #00C8F9;
+}
+.tools{
+    font-weight: bold;
+    font-family: 'Comfortaa', cursive;
+    color: #00C8F9;
+}
+.option{
+    font-family: 'Comfortaa', cursive;
+    border: 1px solid #00C8F9;
+    color: #00C8F9;
+    padding:0px !important;
+    background-color: black;
+}
