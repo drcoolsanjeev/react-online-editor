@@ -26,11 +26,13 @@ export default function Home() {
 
     const [file, setfile] = useState("");
     const [actualFile,setAcFile] = useState();
-    const [isfile,set_isFile] = useState(false);
+    const [isChanged,set_isChange] = useState(false);
     const [fileType,setType] = useState("");
     const [fontSize,setFontSize] = useState(18);
+    const [theme,setTheme] = useState("monokai");
 
     const onValueChange = value =>{
+        set_isChange(value ? true : false)
         setfile(value);
     }
     const setFileType = read =>{
@@ -42,6 +44,7 @@ export default function Home() {
             setType(type.substring(7));
         }
     }
+
     const onChange = event =>{
         let read = event.target.files[0];
         console.log(read);
@@ -51,26 +54,25 @@ export default function Home() {
         reader.onload = function(e){
             let content = reader.result;
             setfile(content);
-            set_isFile(true);
+            set_isChange(true);
             setFileType(read);
         }
         reader.readAsText(read);
     }
 
-
     const downloadFile = () => {
-        let blob = new Blob([ new TextEncoder().encode(file) ],{type: "text/plain"});
-        FileSaver.saveAs(blob,actualFile.name);
+        let blob = new Blob([ new TextEncoder().encode(file) ],{type: "text/plain"});   
+        actualFile ? FileSaver.saveAs(blob,actualFile.name) : FileSaver.saveAs(blob,"sample." + fileType);
     }
 
-    const CustomChange = (type,event) =>{
-        if(type == "fontSize"){
-            if(event.target.value){
-                setFontSize(event.target.value);
-                console.log(fontSize);
-            }
-            
-        }
+    const modeChange = e =>{
+        setType(e.target.value);
+    }
+    const themeChange = e =>{
+        setTheme(e.target.value);
+    }
+    const sizeChange = e =>{
+        setFontSize(e.target.value);
     }
     let Aceditor = React.createRef();
     
@@ -79,31 +81,39 @@ export default function Home() {
         <div>
             <div className="Main">
                 <h1 className="title">Online Text Editor</h1>
-                <div className="container tools">
+                <div className="tools">
                     <div className="row">
-                    <div className="col-sm-6">
-                        <form>
-                            <label>Upload Your File</label>
-                            <input type="file" name="file" onChange={onChange} />
-                        </form>
-                    </div>
-
                     <div className="col-sm-3">
-                        <label>Font Size:</label>
-                        <select onChange={(e) => CustomChange("fontSize",e)} value={fontSize} className="option">
-                            <option value="18" className="option">18</option>  
-                            <option value="24">24</option>
-                            <option value="34">34</option>
-                            <option value="52">52</option>
-                            <option value="82">82</option>
-                            <option value="102">102</option>
-                        </select>
+                        <input type="file" name="file" className="upload" onChange={onChange} />
+                        <button disabled={!isChanged} onClick={downloadFile} className="download"></button>
+                        
                     </div>
-
+                    <div className="col-sm-3"></div>
+                    <div className="col-sm-3"></div>
                     <div className="col-sm-3">
-                        <button disabled={!isfile} onClick={downloadFile}>Download</button>
+
+                    <select onChange={modeChange} value={fileType} className="mode">
+                            <option value="txt" className="mode-option">Text</option>
+                            <option value="java" className="mode-option">java</option>
+                            <option value="python" className="mode-option">python</option>
+                            <option value="html" className="mode-option">html</option>
+                    </select>
+
+                    <select onChange={themeChange} value={theme} className="mode">
+                            <option value="monokai" className="mode-option">monokai</option>
+                            <option value="github" className="mode-option">github</option>
+                            <option value="terminal" className="mode-option">terminal</option>
+                    </select>
+
+                    <select onChange={sizeChange} value={fontSize} className="mode">
+                        <option value={19} className="mode-option">18</option>  
+                        <option value={24} className="mode-option">24</option>
+                        <option value={34} className="mode-option">34</option>     
+                        <option value={54} className="mode-option">54</option>
+                    </select>
                     </div>
                     </div>
+                    
                 </div>
 
                 <div className="editor shadow-lg">
@@ -114,13 +124,13 @@ export default function Home() {
                     width='100%'
                     onChange={onValueChange}
                     mode={fileType}
-                    theme="monokai"
+                    theme={theme}
                     name="id1"
                     value={file}
-                    placeholder="Upload a file or Write Your Text Here"
+                    placeholder="Upload a file By Clicking on The Upload Icon or Write Your Text Here"
                 />
                 </div>
             </div>
         </div>
-    )
+    );
 }
