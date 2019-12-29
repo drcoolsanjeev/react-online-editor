@@ -1,6 +1,14 @@
 
 ## Introduction
 
-In this project, create a react app to support online editor to view and edit a file using intelisense 
+### React Online Editor to View,Edit Files stored on Local Storage
 
-for example: we can use npm `react-ace` - https://www.npmjs.com/package/react-ace
+## Tech Stack
+* Reactjs
+* Ace editor
+* file-saver
+* css
+
+## How to Run
+* Run ***npm start*** in the main directory( make sure you install the node modules first using ***npm install***
+
