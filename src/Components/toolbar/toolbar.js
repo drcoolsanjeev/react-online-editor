@@ -5,7 +5,7 @@ import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 import React, { Component } from 'react';
 import { FilePond } from 'react-filepond';
 import './toolbar.css';
-
+import 'ace-builds/src-min-noconflict/ext-searchbox';
 //icons for fabric ui
 initializeIcons();
 
@@ -49,37 +49,132 @@ const contentStyles = mergeStyleSets({
   
 
 export default class Toolbar extends Component {
-
     state = {
+		newModal: false,
         isModalOpen: false,
         fileUploaded: false,
         files: [],
-        fileCount: 0
+        fileCount: 0,
+		op: 0,
+		redic: '',
     }
 
     handleUpload = () => {
         this.setState({isModalOpen: true})
     }
-
     closeModal = () => {
         this.setState({isModalOpen: false})
     }
-
-    items = [
-        {
-          key: 'upload',
-          text: 'Upload',
-          iconProps: { iconName: 'Upload' },
-          onClick: this.handleUpload
-        },
-        {
-          key: 'download',
-          text: 'Download',
-          iconProps: { iconName: 'Download' },
-          onClick: () => this.props.onFileDownload()
-        }
-      ];
-      
+	
+	items = [
+			{
+				key: 'file',
+				text: 'File',
+				iconProps: { iconName: "Page" },
+				subMenuProps: {
+					items: [
+						{
+							key: 'upload',
+							text: 'Open',
+							iconProps: { iconName: 'Folder' },
+							onClick: this.handleUpload,
+						},
+						{
+							key: 'download',
+							text: 'Download',
+							iconProps: { iconName: 'Download' },
+							onClick: () => this.props.onFileDownload()
+						},
+						{
+							key: 'new',
+							text: 'Change file name',
+							iconProps: { iconName: 'Add' },
+							onClick: () => {console.log("X");let name = window.prompt("Enter the file name:", "new.txt"); if(name === null || name === ""){}else{this.props.make(name)};},
+						},
+					]
+				}
+			},
+			{
+				key: 'edit',
+				text: 'Edit',
+				iconProps: { iconName: 'Edit' },
+				subMenuProps: {
+					items: [
+						{
+							key: 'tidy',
+							text: 'Tidy code',
+							subMenuProps: {
+								items: [
+									{
+										key: 'tidyjs',
+										text: 'Javascript',
+										onClick: () => {console.log("?"); this.props.functidy()},
+									},
+								]
+							}
+						},
+						{
+							key: 'mode',
+							text: 'Mode',
+							subMenuProps: {
+								items: [
+									{
+										key: 'mhtml',
+										text: 'Html',
+										onClick: () => this.props.setMode('html'),
+									},
+									{
+										key: 'mcss',
+										text: 'Css',
+										onClick: () => this.props.setMode('css'),
+									},
+									{
+										key: 'mjs',
+										text: 'Javascript',
+										onClick: () => this.props.setMode('javascript'),
+									},
+								]
+							}
+						},
+					]
+				}
+			},
+			{
+				key: 'help',
+				text: 'Help',
+				iconProps: { iconName: 'Help' },
+				subMenuProps: {
+					items: [
+						{
+							key: 'html',
+							text: 'HTML',
+							onClick: ()=> window.open("https://www.w3schools.com/html/default.asp", "_blank"),
+						},
+						{
+							key: 'css',
+							text: 'CSS',
+							onClick: ()=> window.open("https://www.w3schools.com/css/default.asp", "_blank"),
+						},
+						{
+							key: 'javascript',
+							text: 'JAVASCRIPT',
+							onClick: ()=> window.open("https://www.w3schools.com/js/default.asp", "_blank"),
+						},
+						{
+							key: 'react',
+							text: 'REACT.JS',
+							onClick: ()=> window.open("https://reactjs.org/tutorial/tutorial.html", "_blank"),
+						},
+						{
+							key: 'react reference',
+							text: 'React Reference',
+							onClick: ()=> window.open("https://www.npmjs.com","_blank"),
+						}
+					]
+				}
+			},
+	];
+	
     farItems = [
         {
           key: 'info',
@@ -97,6 +192,7 @@ export default class Toolbar extends Component {
 
         return (
             <div>
+			<div> {this.state.redic} </div>
             <CommandBar
                 items={this.items}
                 overflowItems={this._overflowItems}
@@ -115,7 +211,7 @@ export default class Toolbar extends Component {
                 <FilePond 
                     required={true} 
                     allowBrowse={true} 
-                    allowMultiple={true} 
+                    allowMultiple={false} 
                     allowPaste={true} 
                     allowDrop={true} 
                     dropOnPage={true}
